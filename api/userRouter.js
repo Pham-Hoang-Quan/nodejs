@@ -53,7 +53,8 @@ userRouter.get('/:userId/messages', (req, res) => {
         u.userId,
         u.username,
         u.fullName,
-        u.avatarUrl
+        u.avatarUrl,
+        u.email
       FROM
         users u
       JOIN
