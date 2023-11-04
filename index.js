@@ -25,6 +25,12 @@ app.use('/users', userRoutes);
 // import tệp messageRouter 
 const messageRouter = require('./api/messagesRouter.js');
 app.use('/messages', messageRouter);
+//qr code
+const qrcode = require('./api/QRcode.js');
+app.use('/qrcode', qrcode);
+//profile
+const profile = require('./api/profile.js');
+app.use('/profile', profile);
 
 
 
