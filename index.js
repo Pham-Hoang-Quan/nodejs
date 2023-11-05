@@ -31,6 +31,9 @@ app.use('/qrcode', qrcode);
 //profile
 const profile = require('./api/profile.js');
 app.use('/profile', profile);
+//search băng ten
+const searchByName = require('./api/search.js');
+app.use('/search', searchByName);
 
 
 
