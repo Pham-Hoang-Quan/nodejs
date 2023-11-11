@@ -102,4 +102,91 @@ userRouter.get('/:userId', (req, res) => {
   });
 });
 
+// Cập nhật thông tin người dùng dựa trên userId, chỉ cập nhật fullName
+
+userRouter.put('/updateFullName/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const { fullName } = req.body; // Chỉ lấy fullName từ req.body
+
+  const sql = `
+    UPDATE users
+    SET fullName = ?
+    WHERE userId = ?;
+  `;
+
+  db.query(sql, [fullName, userId], (err, result) => {
+    if (err) {
+      console.error('Lỗi cập nhật fullname:', err);
+      res.status(500).json({ error: 'Lỗi cập nhật họ và tên người dùng' });
+    } else {
+      res.status(200).json({ message: 'Họ và tên người dùng đã được cập nhật' });
+    }
+  });
+});
+
+// Cập nhật thông tin người dùng dựa trên userId, chỉ cập nhật Email
+
+userRouter.put('/updateEmail/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const { email } = req.body; // Chỉ lấy fullName từ req.body
+
+  const sql = `
+    UPDATE users
+    SET email = ?
+    WHERE userId = ?;
+  `;
+
+  db.query(sql, [email, userId], (err, result) => {
+    if (err) {
+      console.error('Lỗi cập nhật email:', err);
+      res.status(500).json({ error: 'Lỗi cập nhật email người dùng' });
+    } else {
+      res.status(200).json({ message: 'email người dùng đã được cập nhật' });
+    }
+  });
+});
+
+// Cập nhật thông tin người dùng dựa trên userId, chỉ cập nhật SDT
+
+userRouter.put('/updatePhoneNumber/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const { phoneNumber } = req.body; 
+
+  const sql = `
+    UPDATE users
+    SET phoneNumber = ?
+    WHERE userId = ?;
+  `;
+
+  db.query(sql, [phoneNumber, userId], (err, result) => {
+    if (err) {
+      console.error('Lỗi cập nhật Số điện thoại:', err);
+      res.status(500).json({ error: 'Lỗi cập nhật Số điện thoại người dùng' });
+    } else {
+      res.status(200).json({ message: 'Số điện thoại người dùng đã được cập nhật' });
+    }
+  });
+});
+
+userRouter.put('/updateAvtUrl/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const { avatarUrl } = req.body; // Chỉ lấy fullName từ req.body
+
+  const sql = `
+    UPDATE users
+    SET avatarUrl = ?
+    WHERE userId = ?;
+  `;
+
+  db.query(sql, [avatarUrl, userId], (err, result) => {
+    if (err) {
+      console.error('Lỗi cập nhật fullname:', err);
+      res.status(500).json({ error: 'Lỗi cập nhật avatar người dùng' });
+    } else {
+      res.status(200).json({ message: 'avatar người dùng đã được cập nhật' });
+    }
+  });
+});
+
+
 module.exports = userRouter;

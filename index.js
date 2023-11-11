@@ -53,27 +53,7 @@ app.get('/messages', (req, res) => {
 
 
 
-app.get('/messages/:senderId/:receiverId', (req, res) => {
-  const senderId = req.params.senderId;
-  const receiverId = req.params.receiverId;
 
-  const sql = `
-  SELECT *
-  FROM messages
-  WHERE (sender_id = ? AND receiver_id = ?)
-  OR (sender_id = ? AND receiver_id = ?)
-  ORDER BY timestamp ASC;
-  `;
-
-  db.query(sql, [senderId, receiverId, receiverId, senderId], (error, results) => {
-    if (error) {
-      console.error('Lỗi truy vấn:', error);
-      res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
-    } else {
-      res.json(results);
-    }
-  });
-});
 
 
 app.listen(port, () => {
