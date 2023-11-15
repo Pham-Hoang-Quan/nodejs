@@ -168,6 +168,7 @@ userRouter.put('/updatePhoneNumber/:userId', (req, res) => {
   });
 });
 
+// cập nhạt avt từ AI
 userRouter.put('/updateAvtUrl/:userId', (req, res) => {
   const userId = req.params.userId;
   const { avatarUrl } = req.body; // Chỉ lấy fullName từ req.body
@@ -188,5 +189,47 @@ userRouter.put('/updateAvtUrl/:userId', (req, res) => {
   });
 });
 
+// Cập nhật thông tin người dùng dựa trên userId, chỉ cập nhật avt từ điện th
+
+userRouter.put('/updateAvatarUrl/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const { avatarUrl } = req.body; 
+
+  const sql = `
+    UPDATE users
+    SET avatarUrl = ?
+    WHERE userId = ?;
+  `;
+
+  db.query(sql, [avatarUrl, userId], (err, result) => {
+    if (err) {
+      console.error('Lỗi cập nhật avt:', err);
+      res.status(500).json({ error: 'Lỗi cập nhật avt người dùng' });
+    } else {
+      res.status(200).json({ message: 'avt người dùng đã được cập nhật' });
+    }
+  });
+});
+
+// cập nhật mật khẩu
+userRouter.put('/updatePassword/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const { password } = req.body; // Chỉ lấy fullName từ req.body
+
+  const sql = `
+    UPDATE users
+    SET password = ?
+    WHERE userId = ?;
+  `;
+
+  db.query(sql, [password, userId], (err, result) => {
+    if (err) {
+      console.error('Lỗi cập nhật fullname:', err);
+      res.status(500).json({ error: 'Lỗi cập nhật mật khẩu' });
+    } else {
+      res.status(200).json({ message: 'Mật khẩu đã được cập nhật' });
+    }
+  });
+});
 
 module.exports = userRouter;
